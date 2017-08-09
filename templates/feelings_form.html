@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="well spaced" style="width:40%;">
+<div>
+    <h1>How are you feeling?</h1>
+    <form action="/results" method="POST">
+
+        <div class="form-group">
+            <label>Feelings keywords:
+                <input type="text" name="feelings" required class="form-control"><br>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>Go onnnn tell me more:
+                <input type="text" name="password" required class="form-control"><br>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label> Do you feel like wallowing or getting an attitude adjustment?<br>
+                <input type="radio" name="feels" value="wallow">Wallow<br>
+                <input type="radio" name="feels" value="adjust">Adjust<br>
+            </label>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Calculate the feels" class="btn btn-danger">
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

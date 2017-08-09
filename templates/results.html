@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="homepage-block">
+        <h1 id="homepage-title">Motivational Mashup</h1>
+    </div>
+    <div id="img-carosel">
+        <img src="http://www.wefeelfine.org/data/images/2012/07/26/waKArEonzowK1SGIJVAQYA_montage_thumb.jpg">
+    </div>
+   
+    <div id="returned results">
+        <h3>Positive Results</h3><br>
+        <p> {{pResults}} </p><br>
+        <h3>Negative Results</h3><br>
+        <p> {{nResults}} </p><br>
+    </div>
+    
+
+{% endblock %}
