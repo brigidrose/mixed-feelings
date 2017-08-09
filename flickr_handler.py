@@ -2,6 +2,7 @@ import flickrapi
 import json
 from pprint import pprint
 import os
+import random
 
 class flickrClient(object):
     """Generic Flickr Class for handling flickr API calls."""
@@ -20,28 +21,20 @@ class flickrClient(object):
         self.extras = 'url_l'
         #'url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o'
 
-    def get_photos(self, text, per_page):
-        results = self.api.photos.search(text=text, per_page=per_page, extras=self.extras)
+    def get_photos(self, text):
+        results = self.api.photos.search(text=text, extras=self.extras)
         photos = results['photos']['photo']
 
         photo_url = []
 
-        for photo in photos:
-            if "url_l" in photo:
-                photo_url.append(photo['url_l'])
+        while photo_url == []:
+            photo = random.choice(photos)
+            if "url_l" not in photo:
+                print 'NEXT'
             else:
-                print "NOTHING TO SEE HERE"
+                photo_url.append(photo['url_l'])
+                clean_url = str(photo_url).strip('[]u').strip("'")
+                print clean_url
+                break
 
-        return photo_url 
-    # def clean_photos(self):
-
-
-
-    #     pprint(self.get_photos())
-
-# code reminder for later...
-# i = 0
-# results = []
-# while results == []:
-# results = flickr.get_photos('happy', i)
-# i += 1
+        return clean_url

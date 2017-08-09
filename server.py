@@ -8,6 +8,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Result, Tweet, Picture
 
 from twitter_handler import TwitterClient
+from flickr_handler import flickrClient
 
 
 app = Flask(__name__)
@@ -106,7 +107,15 @@ def feelings_form():
 def process_feelings():
     """Process feelings form."""
 
+    #gets form input from feelings form
     feels = request.form.get("feelings")
+
+    #calls to the flickrClient class in flickr_handler
+    fApi = flickrClient()
+
+    #
+    photos = fApi.get_photos(feels)
+    print photos
 
     # creating object of TwitterClient Class
     api = TwitterClient()
@@ -132,7 +141,11 @@ def process_feelings():
         nResults = (tweet['text'])
 
 
-    return render_template("results.html", feels=feels, nResults=nResults, pResults=pResults)
+    return render_template("results.html",
+                            feels=feels,
+                            nResults=nResults,
+                            pResults=pResults,
+                            photos=photos)
 
     
 
