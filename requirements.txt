@@ -12,8 +12,8 @@ Jinja2==2.9.6
 MarkupSafe==1.0
 nltk==3.2.4
 oauthlib==2.0.2
-pkg-resources==0.0.0
 psycopg2==2.7.3
+pkg-resources==0.0.0
 requests==2.18.3
 requests-oauthlib==0.8.0
 requests-toolbelt==0.8.0

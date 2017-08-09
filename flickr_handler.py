@@ -9,8 +9,9 @@ class flickrClient(object):
     def __init__(self):
         '''Class constructor or initialization method.'''
         #keys and tokens from the Flickr Dev Console
-        api_key = os.environ.get('FLICKR_API_KEY')
-        api_secret = os.environ.get('FLICKR_API_SECRET')
+        api_key = os.environ['FLICKR_API_KEY']
+        api_secret = os.environ['FLICKR_API_SECRET']
+        
 
             #PROBABLY NEED TO PUT AUTHENTICATION STUFF HERE. NOT SURE HOW.
 
@@ -31,18 +32,16 @@ class flickrClient(object):
             else:
                 print "NOTHING TO SEE HERE"
 
-        return photo_url
-   
-    def clean_photos(self):
+        return photo_url 
+    # def clean_photos(self):
 
 
 
-        pprint(self.get_photos())
+    #     pprint(self.get_photos())
 
 # code reminder for later...
 # i = 0
 # results = []
 # while results == []:
 # results = flickr.get_photos('happy', i)
-# i += 1   
-
+# i += 1
