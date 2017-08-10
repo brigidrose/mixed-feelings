@@ -107,13 +107,18 @@ def feelings_form():
 def process_feelings():
     """Process feelings form."""
 
+
     #gets form input from feelings form
-    feels = request.form.get("feelings")
+    feels = request.form["feelings"]
+
+    # new_feelings = Result(keyword=feels)
+    # db.session.add(new_feelings)
+    # db.session.commit()
 
     #calls to the flickrClient class in flickr_handler
     fApi = flickrClient()
 
-    #
+    #calls to the get_photos method in f_handler to get the f_url
     photos = fApi.get_photos(feels)
     print photos
 
@@ -124,7 +129,7 @@ def process_feelings():
 
     # picking positive tweets from tweets
     ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
-    
+   
     # picking negative tweets from tweets
     ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
    
@@ -140,12 +145,35 @@ def process_feelings():
     for tweet in ntweets[:10]:
         nResults = (tweet['text'])
 
-
     return render_template("results.html",
                             feels=feels,
                             nResults=nResults,
                             pResults=pResults,
                             photos=photos)
+
+
+#THIS ROUTE IS A WORK IN PROGRESS
+@app.route('/saved', methods=['POST'])
+def save_results():
+    """Saving the img and the text from results"""
+
+
+    # Get form variables
+    keyword = request.form["keyword"]
+   
+    #also need to add twitter text
+    #also need to add flickr url
+
+    new_keyword = Result(keywords=keyword)
+
+    # age=age, zipcode=zipcode)
+
+    db.session.add(keyword)
+    db.session.commit()
+
+    return redirect('/profile')
+    pass
+
 
     
 

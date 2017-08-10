@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
     <div id="homepage-block">
-        <h1 id="homepage-title">Motivational Mashup</h1>
-    </div>
-    <div id="img-carosel">
-        <img src="http://www.wefeelfine.org/data/images/2012/07/26/waKArEonzowK1SGIJVAQYA_montage_thumb.jpg">
+        <h1 id="homepage-title">Mixed Feelings</h1>
     </div>
    
     <div id="returned results">
         <img src="{{photos}}">
-        <p>{{photos}}</p>
         <h3>Positive Results</h3><br>
         <p> {{pResults}} </p><br>
         <h3>Negative Results</h3><br>
         <p> {{nResults}} </p><br>
     </div>
+    <form action="/saved" method="POST">
+        <div class="save-btn">
+            <!-- NOTE: JINJA IN THE WRONG PLACE. CHANGE! -->
+            <input type="submit" name="keyword" value={{feels}} class="btn btn-danger">
+        </div>
+    </form>
     
 
 {% endblock %}
