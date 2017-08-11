@@ -1,65 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button"
-              class="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target="#navbar"
-              aria-expanded="false"
-              aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Ubermelon</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">About</a></li>
-        <li><a href="#">Profile</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Log In</a></li>
-      </ul>
-    </div>
+<h1>How are you feeling?</h1>
+<form action="/results" method="POST">
+  <div class="form-group">
+    <label>Feelings keywords:
+      <input type="text" name="feeling_keyword" required class="form-control"><br>
+    </label>
   </div>
-</nav>
-    <div id="homepage-block">
-        <h1 id="homepage-title"> Mixed Feelings </h1>
-    </div>
-    <div id="img-carosel">
-        <img src="https://farm5.staticflickr.com/4362/36393232736_41c24f5e04_b.jpg">
-    </div>
-<div class="well spaced" style="width:40%;">
-<div>
-    <h1>How are you feeling?</h1>
-    <form action="/results" method="POST">
 
-        <div class="form-group">
-            <label>Feelings keywords:
-                <input type="text" name="feelings" required class="form-control"><br>
-            </label>
-        </div>
+  <div class="form-group">
+    <label>Go onnnn tell me more:
+      <input type="text" name="p_feels" required class="form-control"><br>
+    </label>
+  </div>
 
-        <div class="form-group">
-            <label>Go onnnn tell me more:
-                <input type="text" name="p_feels" required class="form-control"><br>
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label> Do you feel like wallowing or getting an attitude adjustment?<br>
-                <input type="radio" name="feels" value="wallow">Wallow<br>
-                <input type="radio" name="feels" value="adjust">Adjust<br>
-            </label>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Calculate the feels" class="btn btn-danger">
-        </div>
-    </form>
-</div>
-</div>
+  <div class="form-group">
+    <label> Are you a glass half full or glass half empty kind of person?<br>
+      <input type="radio" name="feels" value="full">Full<br>
+      <input type="radio" name="feels" value="empty">Empty<br>
+    </label>
+  </div>
+        
+  <div class="form-group">
+    <input type="submit" value="Calculate the feels" class="btn btn-danger">
+  </div>
+</form>
 {% endblock %}

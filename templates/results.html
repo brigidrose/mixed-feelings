@@ -1,22 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div id="homepage-block">
-        <h1 id="homepage-title">Mixed Feelings</h1>
-    </div>
    
-    <div id="returned results">
-        <img src="{{photos}}">
-        <h3>Positive Results</h3><br>
-        <p> {{pResults}} </p><br>
-        <h3>Negative Results</h3><br>
-        <p> {{nResults}} </p><br>
+  <div id="returned results">
+    <img src="{{photos}}">
+    <h3>Results</h3><br>
+    <p> {{Results}} </p><br>  
+  </div>
+    
+  <form action="/saved" method="POST">
+    <div class="save-btn">
+      <input type="hidden" name="keywords" value={{feels}}>
+      <input type="hidden" name="twitter" value={{Results}}>
+      <input type="hidden" name="flickr" value={{photos}}>
+      <input type="submit" name="save" value="Save" class="btn btn-danger">
     </div>
-    <form action="/saved" method="POST">
-        <div class="save-btn">
-            <!-- NOTE: JINJA IN THE WRONG PLACE. CHANGE! -->
-            <input type="submit" name="keyword" value={{feels}} class="btn btn-danger">
-        </div>
-    </form>
+  </form>
     
 
 {% endblock %}

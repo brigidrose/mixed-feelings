@@ -107,48 +107,41 @@ def feelings_form():
 def process_feelings():
     """Process feelings form."""
 
+############ FORM INPUTS ###################################################
 
     #gets form input from feelings form
-    feels = request.form["feelings"]
+    feels = request.form["feeling_keyword"]
+    #gets the information from the radio toggle button
+    toggle = request.form["feels"]
 
-    # new_feelings = Result(keyword=feels)
-    # db.session.add(new_feelings)
-    # db.session.commit()
+########### CLASS CALLS AND METHOD CALLS ##################################
 
     #calls to the flickrClient class in flickr_handler
     fApi = flickrClient()
-
     #calls to the get_photos method in f_handler to get the f_url
     photos = fApi.get_photos(feels)
     print photos
-
     # creating object of TwitterClient Class
     api = TwitterClient()
     # calling function to get tweets
     tweets = api.get_tweets(query = feels, count = 200)
 
-    # picking positive tweets from tweets
-    ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
-   
-    # picking negative tweets from tweets
-    ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
-   
-    # printing first 5 positive tweets
-    print("\n\nPositive tweets:")
+########## LOGIC FOR PICKING POS OR NEG ###################################
 
-    for tweet in ptweets[:10]:
-        pResults = (tweet['text'])
-
-    # printing first 5 negative tweets
-    print("\n\nNegative tweets:")
-
-    for tweet in ntweets[:10]:
-        nResults = (tweet['text'])
+    if toggle == "full":
+        feeling ='positive'
+        print "POSIIIIII"
+    else:
+        feeling = 'negative'
+        print "NEGIIIIII"
+        # picking positive tweets from tweets
+    tweets = [tweet for tweet in tweets if tweet['sentiment'] == feeling]
+    for tweet in tweets[:10]:
+        Results = (tweet['text'])
 
     return render_template("results.html",
                             feels=feels,
-                            nResults=nResults,
-                            pResults=pResults,
+                            Results=Results,
                             photos=photos)
 
 
@@ -159,21 +152,22 @@ def save_results():
 
 
     # Get form variables
-    keyword = request.form["keyword"]
+    keyword = request.form["keywords"]
+    # twit_url = request.form["twitter"]
+    # flick_url = request.form["flickr"]
    
-    #also need to add twitter text
-    #also need to add flickr url
-
-    new_keyword = Result(keywords=keyword)
+    save_twit = Result(tweet_id=twit_url)
+    # save_flick = Result(flickr_id=flick_url)
+    # new_keyword = Result(keywords=keyword)
 
     # age=age, zipcode=zipcode)
 
-    db.session.add(keyword)
+    db.session.add(new_keyword)
+    # db.session.add(save_twit)
+    # db.session.add(save_flick)
     db.session.commit()
 
     return redirect('/profile')
-    pass
-
 
     
 
