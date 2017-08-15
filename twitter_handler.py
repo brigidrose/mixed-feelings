@@ -63,10 +63,12 @@ class TwitterClient(object):
 
         try:
             # call twitter api to fetch tweets
-            fetched_tweets = self.api.search(q = query, count = count)
+            fetched_tweets = self.api.search(q = query, count = count, lang = u'en')
+            filtered_tweets = [tweet for tweet in fetched_tweets
+                               if len(tweet.entities['user_mentions']) == 0]
 
             # parsing tweets one by one
-            for tweet in fetched_tweets:
+            for tweet in filtered_tweets:
                 # empty dictionary to store required params of a tweet
                 parsed_tweet = {}
 

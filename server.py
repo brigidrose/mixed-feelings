@@ -1,4 +1,4 @@
-"""Server for Motivational Mashup"""
+"""Server for Mixed Feelings"""
 
 from jinja2 import StrictUndefined
 
@@ -91,7 +91,7 @@ def about():
 
     return render_template("about.html")
 
-@app.route('/profile')
+@app.route('/users')
 def profile():
     """Allows user to go to their personal profile page."""
 
@@ -111,8 +111,11 @@ def process_feelings():
 
     #gets form input from feelings form
     feels = request.form["feeling_keyword"]
+    #get paragraph block of text.
+    block = request.form["b_text"]
     #gets the information from the radio toggle button
     toggle = request.form["feels"]
+
 
 ########### CLASS CALLS AND METHOD CALLS ##################################
 
@@ -124,7 +127,7 @@ def process_feelings():
     # creating object of TwitterClient Class
     api = TwitterClient()
     # calling function to get tweets
-    tweets = api.get_tweets(query = feels, count = 200)
+    tweets = api.get_tweets(query=feels, count=200)
 
 ########## LOGIC FOR PICKING POS OR NEG ###################################
 
@@ -136,16 +139,26 @@ def process_feelings():
         print "NEGIIIIII"
         # picking positive tweets from tweets
     tweets = [tweet for tweet in tweets if tweet['sentiment'] == feeling]
-    for tweet in tweets[:10]:
-        Results = (tweet['text'])
+
+    if len(tweets) == 0:
+        return render_template("broke_the_internet.html")
+
+    results = tweet['text']
 
     return render_template("results.html",
                             feels=feels,
-                            Results=Results,
-                            photos=photos)
+                            results=results,
+                            photos=photos,
+                            block=block)
 
 
-#THIS ROUTE IS A WORK IN PROGRESS
+# @app.route('/remix', methods=['POST'])
+
+# render_template("results.html",
+#                             feels=feels,
+#                             results=results,
+#                             photos=photos)
+
 @app.route('/saved', methods=['POST'])
 def save_results():
     """Saving the img and the text from results"""
@@ -153,21 +166,46 @@ def save_results():
 
     # Get form variables
     keyword = request.form["keywords"]
-    # twit_url = request.form["twitter"]
-    # flick_url = request.form["flickr"]
-   
-    save_twit = Result(tweet_id=twit_url)
-    # save_flick = Result(flickr_id=flick_url)
-    # new_keyword = Result(keywords=keyword)
+    text_results = request.form["twitter"]
+    flick_url = request.form["flickr"]
+    block = request.form["b_text"]
 
-    # age=age, zipcode=zipcode)
+    #Saving current user info into the db
+    user_id = session.get("user_id")
+    db.session.add(user_id)
+    db.session.commit()
+    #Saving tweet data to db
+    save_twit = Tweet(tweet_text=text_results)
+    db.session.add(save_twit)
+    db.session.commit()
+    #Saving flickr data to db
+    save_flick = Picture(flickr_url=flick_url)
+    db.session.add(save_flick)
+    db.session.commit()
+    #Saving info about when this specific result was saved. (generated)
+    # saved_at = Result(generated_at=somevar)
+    # db.session.add(saved_at)
+    # db.session.commit()
+    #Saving block text input
+    block_text = Result(block_text=block)
+    db.session.add(block_text)
+    db.session.commit()
+    #Get geolocation information once user saves results.
+
+
+    new_keyword = Result(keywords=keyword, 
+                         tweet_id=save_twit.tweet_id, 
+                         flickr_id=save_flick.flickr_id,
+                         block_text=block_text.block_text)
+
+    
 
     db.session.add(new_keyword)
-    # db.session.add(save_twit)
-    # db.session.add(save_flick)
     db.session.commit()
 
-    return redirect('/profile')
+
+
+    return redirect("/users/%s" % results.user_id)
 
     
 

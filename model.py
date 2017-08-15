@@ -40,6 +40,7 @@ class Result(db.Model):
     flickr_id = db.Column(db.Integer, db.ForeignKey('pictures.flickr_id'))
     generated_at = db.Column(db.DateTime)
     keywords = db.Column(db.String(500))
+    block_text = db.Column(db.String(500))
     geo = db.Column(db.ARRAY(db.Numeric, dimensions=1))
   
 
@@ -64,6 +65,12 @@ class Tweet(db.Model):
     tweet_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     tweet_text = db.Column(db.String(400))
 
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Tweet tweet_id=%s>" % (self.tweet_id)
+
+
 
 ##############################################################################
 
@@ -75,6 +82,12 @@ class Picture(db.Model):
     flickr_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     flickr_url = db.Column(db.String(400))
 
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Picture flickr_id=%s>" % (self.flickr_id)
+
+
 ##############################################################################
 # Helper functions
 
@@ -82,7 +95,7 @@ def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our PostgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///mashup'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///mixed-feelings'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
