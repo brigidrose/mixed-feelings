@@ -2,16 +2,20 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Result, Tweet, Picture
 
 from twitter_handler import TwitterClient
 from flickr_handler import flickrClient
+import datetime
 
 
 app = Flask(__name__)
+fApi = flickrClient()
+tApi = TwitterClient()
+
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
@@ -19,7 +23,7 @@ app.secret_key = "ABC"
 # Normally, if you use an undefined variable in Jinja2, it fails silently.
 # This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
-
+app.jinja_env.auto_reload = True
 
 @app.route('/')
 def index():
@@ -91,11 +95,13 @@ def about():
 
     return render_template("about.html")
 
-@app.route('/users')
-def profile():
+@app.route('/users/<user_id>')
+def profile(user_id):
     """Allows user to go to their personal profile page."""
 
-    return render_template("user.html")
+    past_saves = Result.query.filter_by(user_id=user_id).all()
+
+    return render_template("user.html", saved_mixes=past_saves)
 
 @app.route('/feelings', methods=['GET'])
 def feelings_form():
@@ -119,15 +125,12 @@ def process_feelings():
 
 ########### CLASS CALLS AND METHOD CALLS ##################################
 
-    #calls to the flickrClient class in flickr_handler
-    fApi = flickrClient()
     #calls to the get_photos method in f_handler to get the f_url
     photos = fApi.get_photos(feels)
     print photos
-    # creating object of TwitterClient Class
-    api = TwitterClient()
+
     # calling function to get tweets
-    tweets = api.get_tweets(query=feels, count=200)
+    get_tweets = tApi.get_tweets(query=feels, count=200)
 
 ########## LOGIC FOR PICKING POS OR NEG ###################################
 
@@ -138,26 +141,48 @@ def process_feelings():
         feeling = 'negative'
         print "NEGIIIIII"
         # picking positive tweets from tweets
-    tweets = [tweet for tweet in tweets if tweet['sentiment'] == feeling]
+    get_tweets = [tweet for tweet in get_tweets if tweet['sentiment'] == feeling]
 
-    if len(tweets) == 0:
+    if len(get_tweets) == 0:
         return render_template("broke_the_internet.html")
 
-    results = tweet['text']
+    tweet_text = tweet['text']
 
     return render_template("results.html",
                             feels=feels,
-                            results=results,
+                            tweet_text=tweet_text,
                             photos=photos,
-                            block=block)
+                            block=block,
+                            toggle=toggle)
 
 
-# @app.route('/remix', methods=['POST'])
+@app.route('/remix', methods=['POST'])
+def refresh_results():
 
-# render_template("results.html",
-#                             feels=feels,
-#                             results=results,
-#                             photos=photos)
+    feelings = request.form["keyword"]
+    toggle = request.form["toggle"]
+
+
+    photos = fApi.get_photos(feelings)
+
+    get_tweets = tApi.get_tweets(query=feelings, count=200)
+
+    if toggle == "full":
+        feeling ='positive'
+        print "POSIIIIII"
+    else:
+        feeling = 'negative'
+        print "NEGIIIIII"
+        # picking positive tweets from tweets
+    get_tweets = [tweet for tweet in get_tweets if tweet['sentiment'] == feeling]
+
+    if len(get_tweets) == 0:
+        return render_template("broke_the_internet.html")
+    
+    results = {"photo": photos, "tweets": tweet['text']}
+    
+    return jsonify(results)
+
 
 @app.route('/saved', methods=['POST'])
 def save_results():
@@ -170,10 +195,9 @@ def save_results():
     flick_url = request.form["flickr"]
     block = request.form["b_text"]
 
+
     #Saving current user info into the db
     user_id = session.get("user_id")
-    db.session.add(user_id)
-    db.session.commit()
     #Saving tweet data to db
     save_twit = Tweet(tweet_text=text_results)
     db.session.add(save_twit)
@@ -182,21 +206,18 @@ def save_results():
     save_flick = Picture(flickr_url=flick_url)
     db.session.add(save_flick)
     db.session.commit()
-    #Saving info about when this specific result was saved. (generated)
-    # saved_at = Result(generated_at=somevar)
-    # db.session.add(saved_at)
-    # db.session.commit()
     #Saving block text input
-    block_text = Result(block_text=block)
-    db.session.add(block_text)
-    db.session.commit()
+  
     #Get geolocation information once user saves results.
+
 
 
     new_keyword = Result(keywords=keyword, 
                          tweet_id=save_twit.tweet_id, 
                          flickr_id=save_flick.flickr_id,
-                         block_text=block_text.block_text)
+                         block_text=block,
+                         generated_at=datetime.datetime.now(),
+                         user_id=user_id)
 
     
 
@@ -205,7 +226,8 @@ def save_results():
 
 
 
-    return redirect("/users/%s" % results.user_id)
+    return redirect("/users/%s" % user_id)
+
 
     
 

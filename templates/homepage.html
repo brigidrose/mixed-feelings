@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<!-- Static navbar -->
-<div id="img-carosel">
-  <img src="https://farm5.staticflickr.com/4362/36393232736_41c24f5e04_b.jpg">
-</div>
-   
-        <a href="/login"> Login Now!</a>
-        <a href="/register"> Register Now!</a>
-    
-
+<form action="/feelings" method="POST">
+  <div class="form-group">
+    <input type="submit" value="TELL ME ABOUT YOUR FEELS" class="btn btn-danger">
+  </div>
+</form>
 {% endblock %}
 
 {% block page_js %}

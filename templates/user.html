@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <div id="img-carosel">
+    <!-- <div id="img-carosel">
          <h1>HELLO THERE! THIS IS THE PROFILE/USER PAGE!!!!!!</h1>
         <img src="https://farm5.staticflickr.com/4362/36393232736_41c24f5e04_b.jpg">
-    </div>
+    </div> -->
+{% if saved_mixes %}
+  <h3>Saved Remixes</h3>
+    
+  {% for result in saved_mixes %}
+    <h3>{{result.keywords}}</h3>
+    <img src="{{ result.picture.flickr_url}}">
+    <p>{{ result.tweet.tweet_text}}</p>
+  {% endfor %}
+
+{% endif %}
+
+
 
 
 {% endblock %}
