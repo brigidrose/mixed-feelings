@@ -1,0 +1,42 @@
+/*--------------------------------*/
+/*Sitewide*/
+/*--------------------------------*/
+
+body {
+    background-color: #04162b;
+    color: #FFFFFF
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:active {
+    text-decoration: none;
+    color: #fff;
+}
+
+/*--------------------------------*/
+/*Maps*/
+/*--------------------------------*/
+h1{
+    color: purple;
+}
+
+#feelings-heatmap {
+    width: 100%;
+    height: 100%;
+}
+#map-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+

@@ -41,7 +41,8 @@ class Result(db.Model):
     generated_at = db.Column(db.DateTime)
     keywords = db.Column(db.String(500))
     block_text = db.Column(db.String(500))
-    geo = db.Column(db.ARRAY(db.Numeric, dimensions=1))
+    lat = db.Column(db.Float)
+    lng = db.Column(db.Float)
   
 
     # Define relationship to user

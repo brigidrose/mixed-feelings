@@ -10,6 +10,7 @@ from model import connect_to_db, db, User, Result, Tweet, Picture
 from twitter_handler import TwitterClient
 from flickr_handler import flickrClient
 import datetime
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
@@ -194,6 +195,8 @@ def save_results():
     text_results = request.form["twitter"]
     flick_url = request.form["flickr"]
     block = request.form["b_text"]
+    lat = request.form["lat"]
+    lng = request.form["long"]
 
 
     #Saving current user info into the db
@@ -217,7 +220,9 @@ def save_results():
                          flickr_id=save_flick.flickr_id,
                          block_text=block,
                          generated_at=datetime.datetime.now(),
-                         user_id=user_id)
+                         user_id=user_id,
+                         lat=lat,
+                         lng=lng)
 
     
 
@@ -227,6 +232,35 @@ def save_results():
 
 
     return redirect("/users/%s" % user_id)
+
+@app.route('/global_feelings')
+def see_all_feelings():
+
+    return render_template("map.html")
+    
+@app.route('/feelings.json')
+def users_feelings():
+
+    feelings = {
+        result.result_id: {
+            "user_id": result.user_id,
+            "tweet_id": result.tweet_id,
+            "flickr_id": result.flickr_id,
+            "generated_at": result.generated_at,
+            "keywords": result.keywords,
+            "block_text": result.block_text,
+            "lat": result.lat,
+            "lng": result.lng
+        }
+        for result in Result.query.limit(500)}
+
+    return jsonify(feelings)
+
+
+@app.route('/logot')
+def logout():
+
+    pass
 
 
     
