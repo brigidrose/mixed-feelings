@@ -20,9 +20,11 @@ window.onload = function(){
      var imageObj = new Image();
      imageObj.onload = function(){
          context.drawImage(imageObj, 10, 10);
-         context.font = "40pt Calibri";
+         context.fillStyle = "#FF0000"
+         context.fillRect(10,623,768,60)
+         context.font = "18pt Calibri";
          text = document.getElementById("text").innerHTML;
-         context.fillText(text, 50, 50);
+         context.fillText(text, 5, 600);
      };
     imageObj.src = document.getElementById('photo').getAttribute("src"); 
 };

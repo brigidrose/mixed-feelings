@@ -5,9 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Bootstrap -->
-  <!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css" rel="stylesheet">  -->
+  <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css" rel="stylesheet"> 
   <!-- Google Fonts Link -->
-  <!-- <link href='http://fonts.googleapis.com/css?family=Frijole' rel='stylesheet' type='text/css'> -->
+  <link href='http://fonts.googleapis.com/css?family=Frijole' rel='stylesheet' type='text/css'>
  <!--  Javascript -->
   
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js">
@@ -27,7 +27,7 @@
 <body>
 <div id="content">
     <!-- Static navbar -->
-<!--   <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button"
@@ -41,11 +41,11 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand">MF</a>
+  <!--       <a class="navbar-brand">MF</a> -->
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li><a href="/about">About</a></li>
-          <li><a href="/global_feelings">FEELS</a></li>
+          <li><a href="/global_feelings">Feelings Heatmap</a></li>
           {% if "user_id" in session %}
           <li><a href="/users/{{ session['user_id'] }}">Profile</a></li>
           <li><a href="/logout">Log Out</a></li>
@@ -57,7 +57,7 @@
         </ul>
         {% endif %}
       </div>
-    </div> -->
+    </div>
   </nav>
 {% block content %}
 {% endblock %}

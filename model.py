@@ -47,8 +47,8 @@ class Result(db.Model):
 
     # Define relationship to user
     user = db.relationship("User", backref=db.backref("results"))
-    tweet = db.relationship("Tweet", backref=db.backref("reults"))
-    picture = db.relationship("Picture", backref=db.backref("reults"))
+    tweet = db.relationship("Tweet", backref=db.backref("results"))
+    picture = db.relationship("Picture", backref=db.backref("results"))
 
 
     def __repr__(self):

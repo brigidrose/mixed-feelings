@@ -49,8 +49,8 @@ class TwitterClient(object):
         # set sentiment
         if analysis.sentiment.polarity > 0:
             return 'positive'
-        elif analysis.sentiment.polarity == 0:
-            return 'neutral'
+        # elif analysis.sentiment.polarity == 0:
+        #     return 'neutral'
         else:
             return 'negative'
 

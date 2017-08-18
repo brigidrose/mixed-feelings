@@ -11,6 +11,8 @@ from twitter_handler import TwitterClient
 from flickr_handler import flickrClient
 import datetime
 from flask_sqlalchemy import SQLAlchemy
+import pdb
+import pprint
 
 
 app = Flask(__name__)
@@ -132,6 +134,10 @@ def process_feelings():
 
     # calling function to get tweets
     get_tweets = tApi.get_tweets(query=feels, count=200)
+    print get_tweets
+
+    # analysis = tApi.get_tweet_sentiment(tweet=)
+
 
 ########## LOGIC FOR PICKING POS OR NEG ###################################
 
@@ -143,7 +149,7 @@ def process_feelings():
         print "NEGIIIIII"
         # picking positive tweets from tweets
     get_tweets = [tweet for tweet in get_tweets if tweet['sentiment'] == feeling]
-
+    print get_tweets
     if len(get_tweets) == 0:
         return render_template("broke_the_internet.html")
 
@@ -244,8 +250,8 @@ def users_feelings():
     feelings = {
         result.result_id: {
             "user_id": result.user_id,
-            "tweet_id": result.tweet_id,
-            "flickr_id": result.flickr_id,
+            "tweet_id": result.tweet.tweet_text,
+            "flickr_id": result.picture.flickr_url,
             "generated_at": result.generated_at,
             "keywords": result.keywords,
             "block_text": result.block_text,
@@ -260,7 +266,9 @@ def users_feelings():
 @app.route('/logot')
 def logout():
 
-    pass
+    del session["user_id"]
+    flash("Logged Out.")
+    return redirect("/")
 
 
     
