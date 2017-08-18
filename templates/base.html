@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Bootstrap -->
-  <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css" rel="stylesheet"> 
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" integrity="sha384-awusxf8AUojygHf2+joICySzB780jVvQaVCAt1clU3QsyAitLGul28Qxb2r1e5g+" crossorigin="anonymous">
   <!-- Google Fonts Link -->
   <link href='http://fonts.googleapis.com/css?family=Frijole' rel='stylesheet' type='text/css'>
  <!--  Javascript -->
@@ -47,6 +47,7 @@
           <li><a href="/about">About</a></li>
           <li><a href="/global_feelings">Feelings Heatmap</a></li>
           {% if "user_id" in session %}
+          <li><a href="/feelings">Feelings</a></li>
           <li><a href="/users/{{ session['user_id'] }}">Profile</a></li>
           <li><a href="/logout">Log Out</a></li>
         </ul>

@@ -87,6 +87,8 @@ def register_process():
     db.session.add(new_user)
     db.session.commit()
 
+    session["user_id"] = new_user.user_id
+
     flash("User %s added." % email)
     return redirect("/users/%s" % new_user.user_id)
 
@@ -263,7 +265,7 @@ def users_feelings():
     return jsonify(feelings)
 
 
-@app.route('/logot')
+@app.route('/logout')
 def logout():
 
     del session["user_id"]

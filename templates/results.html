@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<canvas id="myCanvas" width="1024" height="683">
+<!-- <canvas id="myCanvas" width="1024" height="683"> -->
    
   <div id="returned results">
     <img id="photo"src="{{photos}}">
+    
     <h3>Results</h3><br>
     <p id="text"> {{tweet_text}} </p><br>  
   </div>
-</canvas>
+<!-- </canvas> -->
 
   <form action="/saved" method="POST">
     <div class="save-btn">
