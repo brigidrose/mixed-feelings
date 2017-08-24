@@ -1,17 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <!-- <div id="img-carosel">
-         <h1>HELLO THERE! THIS IS THE PROFILE/USER PAGE!!!!!!</h1>
-        <img src="https://farm5.staticflickr.com/4362/36393232736_41c24f5e04_b.jpg">
-    </div> -->
+<!-- <div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'London')" <a href="/word_cloud"></a>Word Cloud</button>
+  <button class="tablinks" onclick="openTab(event, 'Paris')">Feelings Graph</button>
+</div>
+ -->
+<!-- <div id="word-cloud" class="tabcontent">
+  <h3>Word Cloud</h3>
+  <p>Display content here!</p>
+</div>
+
+<div id="feelings-graph" class="tabcontent">
+  <h3>Feelings Graph</h3>
+  <p>Paris is the capital of France.</p> 
+</div> -->
+
+<a href="/word_cloud">Word Cloud</a>
+
 {% if saved_mixes %}
   <h3>Saved Remixes</h3>
     
   {% for result in saved_mixes %}
-    <h3>{{result.keywords}}</h3>
-    <img src="{{ result.picture.flickr_url}}">
-    <p>{{ result.tweet.tweet_text}}</p>
+  <div class="thumbnailView">
+    <a href="{{ result.picture.flickr_url }}">
+      <figure>
+        <img src="{{ result.picture.flickr_url }}" alt="">
+          <h4>{{result.keywords}}</h4>
+          <figcaption>
+          {{ result.tweet.tweet_text }}
+          </figcaption>
+      </figure>
+    </a>
+  </div>
   {% endfor %}
 
 {% endif %}
@@ -23,3 +44,7 @@
 
 {% block page_js %}
 {% endblock %}
+
+  <!--   <h3>{{result.keywords}}</h3>
+    <img src="{{ result.picture.flickr_url}}">
+    <p>{{ result.tweet.tweet_text}}</p> -->

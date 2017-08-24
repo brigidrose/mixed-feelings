@@ -2,7 +2,7 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, flash, redirect, session, jsonify
+from flask import Flask, render_template, request, flash, redirect, session, jsonify, json
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Result, Tweet, Picture
@@ -13,6 +13,9 @@ import datetime
 from flask_sqlalchemy import SQLAlchemy
 import pdb
 import pprint
+
+from os import path
+from wordcloud import WordCloud
 
 
 app = Flask(__name__)
@@ -263,6 +266,33 @@ def users_feelings():
         for result in Result.query.limit(500)}
 
     return jsonify(feelings)
+
+@app.route('/word_cloud', methods=['GET'])
+def create_word_cloud():
+
+    user_results = db.session.query(Result.keywords,          #what would I put for current user id?
+                                    Result.block_text).filter(Result.user_id == session['user_id']).all()
+
+    corpus = " ".join([keywords + " " + block_text for keywords, block_text in user_results])
+
+    print type(corpus)
+
+    
+
+    wordcloud = WordCloud().generate(corpus)
+
+    # # # Display the generated image:
+    # # # the matplotlib way:
+    import matplotlib.pyplot as plt
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis("off")
+
+  
+    plt.show()
+
+    return render_template("word_cloud.html")
+
+
 
 
 @app.route('/logout')
