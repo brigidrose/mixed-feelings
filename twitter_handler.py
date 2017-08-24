@@ -93,6 +93,6 @@ class TwitterClient(object):
             print("Error : " + str(e))
 
 
-if __name__ == "__main__":
-    # calling main function
-    main()
+# if __name__ == "__main__":
+#     # calling main function
+#     main()
