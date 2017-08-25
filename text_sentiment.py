@@ -1,3 +1,6 @@
+#NOTE: THIS CODE WAS FOUND HERE: 
+#https://finnaarupnielsen.wordpress.com/2011/06/20/simplest-sentiment-analysis-in-python-with-af/
+
 import math
 import re
 import sys
@@ -30,11 +33,12 @@ def sentiment(text):
 
 
 
-if __name__ == '__main__':
-    # Single sentence example:
-    text = "Brigid is a big dumb stupid asshole. Fuck Brigid."
-    print("%6.2f %s" % (sentiment(text), text))
+
+# if __name__ == '__main__':
+#     # Single sentence example:
+#     text = "Happy angels like sugar love cake and play while having fun."
+#     print("%6.2f %s" % (sentiment(text), text))
     
-    # No negation and booster words handled in this approach
-    text = "Brigid is the best! I love her so much!"
-    print("%6.2f %s" % (sentiment(text), text))
+#     # No negation and booster words handled in this approach
+#     text = "Evil demons hate death , kill the guilty and drink blood."
+#     print("%6.2f %s" % (sentiment(text), text))

@@ -9,6 +9,7 @@ from model import connect_to_db, db, User, Result, Tweet, Picture
 
 from twitter_handler import TwitterClient
 from flickr_handler import flickrClient
+from text_sentiment import sentiment
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 import pdb
@@ -30,6 +31,7 @@ app.secret_key = "ABC"
 # This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
 app.jinja_env.auto_reload = True
+
 
 @app.route('/')
 def index():
@@ -130,6 +132,8 @@ def process_feelings():
     #gets the information from the radio toggle button
     toggle = request.form["feels"]
 
+    analyzed_text = sentiment(block)
+    print analyzed_text, block
 
 ########### CLASS CALLS AND METHOD CALLS ##################################
 
@@ -144,8 +148,13 @@ def process_feelings():
     # analysis = tApi.get_tweet_sentiment(tweet=)
 
 
-########## LOGIC FOR PICKING POS OR NEG ###################################
+############# SENTIMENT ANALYSIS ###################################
+    
+    #block text analysis
+    analyzed_text = sentiment(block)
+    print analyzed_text, block
 
+    #twitter text analysis based on users choice
     if toggle == "full":
         feeling ='positive'
         print "POSIIIIII"
@@ -165,7 +174,8 @@ def process_feelings():
                             tweet_text=tweet_text,
                             photos=photos,
                             block=block,
-                            toggle=toggle)
+                            toggle=toggle,
+                            analyzed_text=analyzed_text)
 
 
 @app.route('/remix', methods=['POST'])
@@ -206,6 +216,7 @@ def save_results():
     text_results = request.form["twitter"]
     flick_url = request.form["flickr"]
     block = request.form["b_text"]
+    sentiment = request.form["sentiment"]
     lat = request.form["lat"]
     lng = request.form["long"]
 
@@ -230,6 +241,7 @@ def save_results():
                          tweet_id=save_twit.tweet_id, 
                          flickr_id=save_flick.flickr_id,
                          block_text=block,
+                         sentiment=sentiment,
                          generated_at=datetime.datetime.now(),
                          user_id=user_id,
                          lat=lat,

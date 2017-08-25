@@ -41,6 +41,7 @@ class Result(db.Model):
     generated_at = db.Column(db.DateTime)
     keywords = db.Column(db.String(500))
     block_text = db.Column(db.String(500))
+    sentiment = db.Column(db.Float)
     lat = db.Column(db.Float)
     lng = db.Column(db.Float)
   
