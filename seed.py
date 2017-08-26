@@ -18,75 +18,90 @@ feels = ['happy', 'sad', 'angry', 'sleepy', 'upset', 'excited', 'scared', 'anxio
         'intrepid', 'goofy', 'grumpy', 'dumbfounded', 'tremendous', 'spectacular',
         'depressed', 'low', 'itchy', 'smelly', 'irrational']
 
-# def load_users():
 
-#     print "Users"
+def load_users():
 
-#     for stuff in range (0,50):
-#         email = str(fake.email())
-#         password = str(fake.password())
-#         user = User(email=email,
-#                 password=password)
-#         db.session.add(user)
+    print "Users"
 
-#     db.session.commit()
+    for stuff in range (0,50):
+        email = str(fake.email())
+        password = str(fake.password())
+        user = User(email=email,
+                password=password)
+        db.session.add(user)
 
-# def load_pictures():
+    db.session.commit()
+
+def load_pictures():
     
-#     for stuff in range (0,50):
-#         new_feeling = random.choice(feels)
-#         print new_feeling
-#         photos = fApi.get_photos(new_feeling)
-#         pic = Picture(flickr_url=photos)
-#         db.session.add(pic)
+    for stuff in range (0,50):
+        new_feeling = random.choice(feels)
+        print new_feeling
+        photos = fApi.get_photos(new_feeling)
+        pic = Picture(flickr_url=photos)
+        db.session.add(pic)
     
-#     db.session.commit()
+    db.session.commit()
 
-# def load_tweets():
+def load_tweets():
 
-#     i = 0
+    i = 0
 
-#     while i < 50:
-#         new_feeling = random.choice(feels)
-#         print new_feeling
-#         get_tweets = tApi.get_tweets(query=new_feeling, count=10)
-#         print get_tweets
-#         try:
-#             tweet = random.choice(get_tweets)['text']
-#         except IndexError:
-#             continue
+    while i < 50:
+        new_feeling = random.choice(feels)
+        print new_feeling
+        get_tweets = tApi.get_tweets(query=new_feeling, count=10)
+        print get_tweets
+        try:
+            tweet = random.choice(get_tweets)['text']
+        except IndexError:
+            continue
 
-#         query = Tweet.query.filter_by(tweet_text=tweet).first()
+        query = Tweet.query.filter_by(tweet_text=tweet).first()
 
-#         if query == None:
-#             tweet_text = Tweet(tweet_text=tweet)
-#             db.session.add(tweet_text)
-#             i = i+1
-#         else:
-#             continue
+        if query == None:
+            tweet_text = Tweet(tweet_text=tweet)
+            db.session.add(tweet_text)
+            i = i+1
+        else:
+            continue
 
-#     db.session.commit()
+    db.session.commit()
 
 def load_results():
 
 
-    #user_id
-    for stuff in range(0,3):
+
+    for stuff in range(0,50):
         user_id = (random.choice(User.query.all())).user_id
         tweet_id = (random.choice(Tweet.query.all())).tweet_id
         pic_id = (random.choice(Picture.query.all())).flickr_id
         date = fake.date()
         keyword = random.choice(feels)
         block = str(fake.text())
+        sentiment = random.choice(range(-5, 5))
         lat = int(fake.latitude())
         lng = int(fake.longitude())
-        print "u-id:", user_id
-        print "t-id:", tweet_id
-        print "f-id:", pic_id
-        print "date:", date
-        print "text:", block
-        print "lat:", lat
-        print "lng:", lng
+
+        db.session.add(user_id)
+        db.session.add(tweet_id)
+        db.session.add(pic_id)
+        db.session.add(date)
+        db.session.add(keyword)
+        db.session.add(block)
+        db.session.add(sentiment)
+        db.session.add(lat)
+        db.session.add(lng)
+
+        db.session.commit()
+        # print "u-id:", user_id
+        # print "t-id:", tweet_id
+        # print "f-id:", pic_id
+        # print "date:", date
+        # print "text:", block
+        # print "sent:", sentiment
+        # print "lat:", lat
+        # print "lng:", lng
 
 
 
@@ -99,7 +114,7 @@ if __name__ == "__main__":
     connect_to_db(app)
     db.create_all()
 
-    # load_users()
-    # load_pictures()
-    # load_tweets()
+    load_users()
+    load_pictures()
+    load_tweets()
     load_results()
