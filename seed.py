@@ -23,7 +23,7 @@ def load_users():
 
     print "Users"
 
-    for stuff in range (0,50):
+    for stuff in range (0,10):
         email = str(fake.email())
         password = str(fake.password())
         user = User(email=email,
@@ -34,7 +34,7 @@ def load_users():
 
 def load_pictures():
     
-    for stuff in range (0,50):
+    for stuff in range (0,10):
         new_feeling = random.choice(feels)
         print new_feeling
         photos = fApi.get_photos(new_feeling)
@@ -47,10 +47,10 @@ def load_tweets():
 
     i = 0
 
-    while i < 50:
+    while i < 10:
         new_feeling = random.choice(feels)
         print new_feeling
-        get_tweets = tApi.get_tweets(query=new_feeling, count=10)
+        get_tweets = tApi.get_tweets(query=new_feeling, count=5)
         print get_tweets
         try:
             tweet = random.choice(get_tweets)['text']
@@ -72,7 +72,7 @@ def load_results():
 
 
 
-    for stuff in range(0,50):
+    for stuff in range(0,10):
         user_id = (random.choice(User.query.all())).user_id
         tweet_id = (random.choice(Tweet.query.all())).tweet_id
         pic_id = (random.choice(Picture.query.all())).flickr_id
@@ -83,15 +83,18 @@ def load_results():
         lat = int(fake.latitude())
         lng = int(fake.longitude())
 
-        db.session.add(user_id)
-        db.session.add(tweet_id)
-        db.session.add(pic_id)
-        db.session.add(date)
-        db.session.add(keyword)
-        db.session.add(block)
-        db.session.add(sentiment)
-        db.session.add(lat)
-        db.session.add(lng)
+        result = Result(user_id=user_id,
+                        tweet_id=tweet_id,
+                        flickr_id=pic_id,
+                        generated_at=date,
+                        keywords=keyword,
+                        block_text=block,
+                        sentiment=sentiment,
+                        lat=lat,
+                        lng=lng)
+
+        db.session.add(result)
+    
 
         db.session.commit()
         # print "u-id:", user_id

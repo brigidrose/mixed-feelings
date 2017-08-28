@@ -54,18 +54,20 @@ class TwitterClient(object):
         else:
             return 'negative'
 
-    def get_tweets(self, query, count = 10):
+    def get_tweets(self, query, count = 1):
         '''
         Main function to fetch tweets and parse them.
         '''
         # empty list to store parsed tweets
         tweets = []
 
+        # while True:
         try:
+            # yield cursor.next()
             # call twitter api to fetch tweets
             fetched_tweets = self.api.search(q = query, count = count, lang = u'en')
             filtered_tweets = [tweet for tweet in fetched_tweets
-                               if len(tweet.entities['user_mentions']) == 0]
+                                   if len(tweet.entities['user_mentions']) == 0]
 
             # parsing tweets one by one
             for tweet in filtered_tweets:
@@ -86,13 +88,20 @@ class TwitterClient(object):
                     tweets.append(parsed_tweet)
 
             # return parsed tweets
+             # yield tweets
+            # print tweets
             return tweets
 
         except tweepy.TweepError as e:
+            # time.sleep(30)
             # print error (if any)
             print("Error : " + str(e))
+            print "OVERLOAD!!!!!"
+            
 
 
+
+# TwitterClient()
 # if __name__ == "__main__":
 #     # calling main function
 #     main()
