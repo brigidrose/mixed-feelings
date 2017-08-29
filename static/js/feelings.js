@@ -9,9 +9,8 @@ function initMap() {
   // Create a map object and specify the DOM element for display.
   var map = new google.maps.Map(document.getElementById('feelings-heatmap'), {
     center: myLatLng,
-    scrollwheel: true,
-     zoomControlOptions: {
-              position: google.maps.ControlPosition.LEFT_CENTER
+    zoomControlOptions: {
+              position: google.maps.ControlPosition.RIGHT_CENTER
           },
     zoom: 4,
     // zoomControl: true,
@@ -24,29 +23,43 @@ function initMap() {
 
   var infoWindow = new google.maps.InfoWindow({
             width: 150
+
   });
 
   
 //   // Retrieving the information with AJAX
   $.get('/feelings.json', function (result) {
 //     
-      var feeling, marker, html;
+      var feeling, marker, html, img;
+      var i = 0;
 
       for (var key in result) {
           feeling = result[key];
 
+          if (feeling.sentiment > 1.0){
+            img = { url: "/static/img/positive.svg", size: new google.maps.Size(30,30)};
+          }
+          else if (feeling.sentiment < -1.0) {
+            img = { url: "/static/img/negative.svg", size: new google.maps.Size(30,30)};
+          }
+          else {
+            img = { url: "/static/img/neutral.svg", size: new google.maps.Size(30,30)};
+          }
+          i++;
+          if (i % 3 === 0){
           // Define the marker
            marker = new google.maps.Marker({
               position: new google.maps.LatLng(feeling.lat, feeling.lng),
               map: map,
               title: 'Real human: ' + feeling.user_id,
+              icon: img,
              
           });
-          console.log(feeling.user_id)
+          
           // Define the content of the infoWindow
           html = (
               '<div class="window-content">' +
-                  '<p><b>Anonymous User: </b></p>' +
+                  // '<p><b>Real Person with Real Feelings: </b> '<a href="/user/' + feeling.user_id + '">USER</a></p>' +
                   '<img width="254" height="355" src=' + feeling.flickr_id + '>' +
                   '<p><b>Word(s) Searched: </b>' + feeling.keywords + '</p>' +
                   '<p><b>Text:</b>' + feeling.tweet_id + '</p>' +
@@ -55,8 +68,10 @@ function initMap() {
                   '<p><b>Location: </b>' + marker.position + '</p>' +
               '</div>');
 
-
+          
           bindInfoWindow(marker, map, infoWindow, html);
+          console.log("STUFF HAPPENING HEREEEEE")
+        }
 
           // marker.addListener('click', function() {
           //   infoWindow.open(map, marker);
@@ -80,6 +95,7 @@ function initMap() {
           infoWindow.close();
           infoWindow.setContent(html);
           infoWindow.open(map, marker);
+          console.log(marker);
       });
   }
 }

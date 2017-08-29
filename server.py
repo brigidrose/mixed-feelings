@@ -272,6 +272,7 @@ def users_feelings():
             "generated_at": result.generated_at,
             "keywords": result.keywords,
             "block_text": result.block_text,
+            "sentiment": result.sentiment,
             "lat": result.lat,
             "lng": result.lng
         }
