@@ -31,22 +31,23 @@ function initMap() {
   $.get('/feelings.json', function (result) {
 //     
       var feeling, marker, html, img;
-      var i = 0;
+     
 
       for (var key in result) {
           feeling = result[key];
 
+          // img = { url: "/static/img/test.jpeg", size: new google.maps.Size(50,50)};
+
           if (feeling.sentiment > 1.0){
-            img = { url: "/static/img/positive.svg", size: new google.maps.Size(30,30)};
+            img = { url: "/static/img/positive.png", size: new google.maps.Size(50,50)};
           }
           else if (feeling.sentiment < -1.0) {
-            img = { url: "/static/img/negative.svg", size: new google.maps.Size(30,30)};
+            img = { url: "/static/img/negative.png", size: new google.maps.Size(50,50)};
           }
           else {
-            img = { url: "/static/img/neutral.svg", size: new google.maps.Size(30,30)};
+            img = { url: "/static/img/neutral.png", size: new google.maps.Size(50,50)};
           }
-          i++;
-          if (i % 3 === 0){
+        
           // Define the marker
            marker = new google.maps.Marker({
               position: new google.maps.LatLng(feeling.lat, feeling.lng),
@@ -71,7 +72,7 @@ function initMap() {
           
           bindInfoWindow(marker, map, infoWindow, html);
           console.log("STUFF HAPPENING HEREEEEE")
-        }
+      
 
           // marker.addListener('click', function() {
           //   infoWindow.open(map, marker);
