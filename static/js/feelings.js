@@ -9,14 +9,23 @@ function initMap() {
   // Create a map object and specify the DOM element for display.
   var map = new google.maps.Map(document.getElementById('feelings-heatmap'), {
     center: myLatLng,
-    scrollwheel: false,
+    scrollwheel: true,
+     zoomControlOptions: {
+              position: google.maps.ControlPosition.LEFT_CENTER
+          },
     zoom: 4,
-    zoomControl: true,
+    // zoomControl: true,
     panControl: false,
     streetViewControl: false,
     // styles: MAPSTYLES,
     mapTypeId: google.maps.MapTypeId.TERRAIN
   });
+
+
+  var infoWindow = new google.maps.InfoWindow({
+            width: 150
+  });
+
   
 //   // Retrieving the information with AJAX
   $.get('/feelings.json', function (result) {
@@ -27,11 +36,11 @@ function initMap() {
           feeling = result[key];
 
           // Define the marker
-          marker = new google.maps.Marker({
+           marker = new google.maps.Marker({
               position: new google.maps.LatLng(feeling.lat, feeling.lng),
               map: map,
               title: 'Real human: ' + feeling.user_id,
-              // icon: '/static/polar.png'
+             
           });
           console.log(feeling.user_id)
           // Define the content of the infoWindow
@@ -46,13 +55,13 @@ function initMap() {
                   '<p><b>Location: </b>' + marker.position + '</p>' +
               '</div>');
 
-          var infoWindow = new google.maps.InfoWindow({
-            content:html
-          });
 
-          marker.addListener('click', function() {
-            infoWindow.open(map, marker);
-          });
+          bindInfoWindow(marker, map, infoWindow, html);
+
+          // marker.addListener('click', function() {
+          //   infoWindow.open(map, marker);
+          // });
+
 
 
           // Inside the loop we call bindInfoWindow passing it the marker,
