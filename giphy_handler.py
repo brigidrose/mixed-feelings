@@ -9,16 +9,16 @@ import giphypop
 #         """Class constructor OR initialization method."""
 #         #didn't make this key secret because it is a public API key used
 #         #for the purposed of developing applications.
-#         api_key = dc6zaTOxFJmz
+#         # api_key = dc6zaTOxFJmz
 
-g = giphypop.Giphy()
+# g = giphypop.Giphy()
 
-def get_giphy():
+def get_giphy(text):
 
-    img = giphypop.translate('derpy')
-    return img.url
+    img = giphypop.translate(text)
+    return img.media_url
 
 
-print get_giphy()
+
 
 

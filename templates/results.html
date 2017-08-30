@@ -3,11 +3,12 @@
 <!-- <canvas id="myCanvas" width="1024" height="683"> -->
    
   <div id="returned results">
-    <img id="photo" src="{{photos}}">
-    
     <h3 class="neon">Results</h3><br>
-    <p id="text"> {{tweet_text}} </p><br>  
-  </div>
+<!--   <div class="col-lg-10"> -->
+    <img id="photo" src="{{photos}}" width="1024" height="768" align="middle">
+    <h4 id="text"> {{tweet_text}} </p><br>  
+  </div><!-- 
+ -->  </div>
 <!-- </canvas> -->
 
   <form action="/saved" method="POST">
@@ -20,12 +21,12 @@
       <input type="hidden" name="flickr" value="{{photos}}" id="flickr-url">
       <input type="hidden" name="b_text" value="{{block}}">
       <input type="hidden" name="sentiment" value="{{analyzed_text}}" id="analyzed_text">
-      <input type="submit" name="save" value="Save" class="btn btn-danger">
+      <input type="submit" name="save" value="Save" class="btn btn-info">
   
     </div>
   </form>
 
-      <button class="btn btn-danger" id="remix-btn">Remix Results</button>
+      <button class="btn btn-info" id="remix-btn">Remix Results</button>
 
 
 
@@ -38,3 +39,5 @@
 <script src="/static/js/get_geolocation.js" type="text/javascript"></script> 
 <script src="/static/js/text_image_overlay.js" type="text/javascript"></script>
 {% endblock %}
+
+<!-- <iframe src="https://giphy.com/embed/3ohzdQaO3Z8FAaqF7q" width="480" height="346" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/scared-nervous-sweating-3ohzdQaO3Z8FAaqF7q">via GIPHY</a></p> -->

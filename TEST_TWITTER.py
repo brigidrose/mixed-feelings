@@ -12,6 +12,15 @@ auth.set_access_token(access_token, access_secret)
 
 api = tweepy.API(auth)
 
-for status in tweepy.Cursor(api.home_timeline).items(10):
-    # Process a single status
-    print(status.text)
+# for status in tweepy.Cursor(api.home_timeline).items(10):
+#     # Process a single status
+#     print(status.text)
+
+try:
+
+    fetched = api.search(q = query, count = count, lang = u'en')
+    filtered = [tweet for tweet in fetched if len(tweet.entities == 0)]
+
+    for tweet in filtered:
+        parsed_tweet = {}
+        

@@ -18,6 +18,8 @@ import pprint
 from os import path
 from wordcloud import WordCloud
 
+from giphy_handler import get_giphy
+import giphypop
 
 app = Flask(__name__)
 fApi = flickrClient()
@@ -132,17 +134,21 @@ def process_feelings():
     #gets the information from the radio toggle button
     toggle = request.form["feels"]
 
-    analyzed_text = sentiment(block)
-    print analyzed_text, block
+
 
 ########### CLASS CALLS AND METHOD CALLS ##################################
 
     #calls to the get_photos method in f_handler to get the f_url
-    photos = fApi.get_photos(feels)
+    # photos = fApi.get_photos(feels)
+    # print photos
+    # img = giphypop.translate(feels)
+    # return img.url
+    photos = get_giphy(feels)
     print photos
 
     # calling function to get tweets
     get_tweets = tApi.get_tweets(query=feels, count=200)
+    # fresh_tweets = tApi.clean_tweets(get_tweets)
     print get_tweets
 
     # analysis = tApi.get_tweet_sentiment(tweet=)
@@ -151,8 +157,11 @@ def process_feelings():
 ############# SENTIMENT ANALYSIS ###################################
     
     #block text analysis
-    analyzed_text = sentiment(block)
-    print analyzed_text, block
+    analyzed_text = sentiment(block) + sentiment(feels)
+    print "LOOOOOKKKKKK RIGHT HERE!!!!!!!!!!!!!!!!!!!!!!"
+    print analyzed_text
+
+
 
     #twitter text analysis based on users choice
     if toggle == "full":
@@ -185,7 +194,8 @@ def refresh_results():
     toggle = request.form["toggle"]
 
 
-    photos = fApi.get_photos(feelings)
+    # photos = fApi.get_photos(feelings)
+    photos = get_giphy(feelings)
 
     get_tweets = tApi.get_tweets(query=feelings, count=200)
 

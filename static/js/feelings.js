@@ -52,7 +52,7 @@ function initMap() {
            marker = new google.maps.Marker({
               position: new google.maps.LatLng(feeling.lat, feeling.lng),
               map: map,
-              title: 'Real human: ' + feeling.user_id,
+              title: 'Feeling ' + feeling.keywords,
               icon: img,
              
           });
@@ -70,6 +70,7 @@ function initMap() {
                   '<p><b>Date Felt: </b>' + feeling.generated_at + '</p>' +
                   '<p><b>All The Gory Details: </b>' + feeling.block_text + '</p>' +
                   '<p><b>Location: </b>' + marker.position + '</p>' +
+                  '<p><b>Sentiment: </b>' + feeling.sentiment + '</p>' +
                 '</div>' +
               '</div>');
 
