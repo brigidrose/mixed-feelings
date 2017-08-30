@@ -60,13 +60,17 @@ function initMap() {
           // Define the content of the infoWindow
           html = (
               '<div class="window-content">' +
-                  // '<p><b>Real Person with Real Feelings: </b> '<a href="/user/' + feeling.user_id + '">USER</a></p>' +
+                  '<p><b>Real Person with Real Feelings: </b> <a href="/users/' + feeling.user_id + '">USER</a></p>' +
+                '<div class="col-md-5">' +
                   '<img width="254" height="355" src=' + feeling.flickr_id + '>' +
+                '</div>' + 
+                '<div class="col-md-5">' +
                   '<p><b>Word(s) Searched: </b>' + feeling.keywords + '</p>' +
                   '<p><b>Text:</b>' + feeling.tweet_id + '</p>' +
                   '<p><b>Date Felt: </b>' + feeling.generated_at + '</p>' +
                   '<p><b>All The Gory Details: </b>' + feeling.block_text + '</p>' +
                   '<p><b>Location: </b>' + marker.position + '</p>' +
+                '</div>' +
               '</div>');
 
           
