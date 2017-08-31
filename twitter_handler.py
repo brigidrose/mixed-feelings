@@ -35,7 +35,7 @@ class TwitterClient(object):
         using simple regex statements.
         '''
 
-        #NOTE: REFORMAT THIS SO IT STRIPS HTTP....
+        
         return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
         
 
@@ -75,7 +75,7 @@ class TwitterClient(object):
                 parsed_tweet = {}
 
                 # saving text of tweet
-                parsed_tweet['text'] = tweet.text
+                parsed_tweet['text'] = self.clean_tweet(tweet.text)
                 # saving sentiment of tweet
                 parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.text)
 

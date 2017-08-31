@@ -148,7 +148,6 @@ def process_feelings():
 
     # calling function to get tweets
     get_tweets = tApi.get_tweets(query=feels, count=200)
-    # fresh_tweets = tApi.clean_tweets(get_tweets)
     print get_tweets
 
     # analysis = tApi.get_tweet_sentiment(tweet=)
@@ -289,6 +288,18 @@ def users_feelings():
         for result in Result.query.limit(500)}
 
     return jsonify(feelings)
+
+# @app.route('/search', methods= ['GET', 'POST'])
+# def search_feelings():
+
+#         search = request.form("search")
+
+#         q = Result.query.filter(Result.keywords.like('%' + search + '%')) | (Result.block_text.like('%' + search + '%')).all()
+
+#         print q
+
+#         #change this route to the proper thing.
+#         return render_template("test.html")
 
 @app.route('/word_cloud', methods=['GET'])
 def create_word_cloud():
