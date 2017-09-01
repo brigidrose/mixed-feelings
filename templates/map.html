@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <form action="/results" method="POST">
+    <form action="/search_results" method="POST">
   <div class="form-group">
     <label>Search:
-      <input type="text" name="search" required class="form-control"><br>
+      <input id="search-keyword" type="text" name="search" required class="form-control"><br>
     </label>
   </div>
 <div id="map-container">

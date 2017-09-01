@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<div id="feelings-form">
 <h1>How are you feeling?</h1>
 <form action="/results" method="POST">
   <div class="form-group">
@@ -9,13 +11,13 @@
   </div>
 
   <div class="form-group">
-    <label>Go onnnn tell me more:
+    <label>Care to elaborate?:
       <input type="text" name="b_text" required class="form-control"><br>
     </label>
   </div>
 
   <div class="form-group">
-    <label> Are you a glass half full or glass half empty kind of person?<br>
+    <label> Is your glass half full or half empty?<br>
       <input type="radio" name="feels" value="full">Full<br>
       <input type="radio" name="feels" value="empty">Empty<br>
     </label>
@@ -25,6 +27,7 @@
     <input type="submit" value="Calculate the feels" class="btn btn-info">
   </div>
 </form>
+</div>
 {% endblock %}
 
 {% block page_js %}

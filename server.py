@@ -289,17 +289,6 @@ def users_feelings():
 
     return jsonify(feelings)
 
-# @app.route('/search', methods= ['GET', 'POST'])
-# def search_feelings():
-
-#         search = request.form("search")
-
-#         q = Result.query.filter(Result.keywords.like('%' + search + '%')) | (Result.block_text.like('%' + search + '%')).all()
-
-#         print q
-
-#         #change this route to the proper thing.
-#         return render_template("test.html")
 
 @app.route('/word_cloud', methods=['GET'])
 def create_word_cloud():

@@ -9,6 +9,7 @@ from server import app
 from faker import Faker
 from flickr_handler import flickrClient
 from twitter_handler import TwitterClient
+from giphy_handler import get_giphy
 
 fake = Faker()
 fApi = flickrClient()
@@ -50,7 +51,8 @@ def load_pictures():
     for _ in range (0,30):
         new_feeling = random.choice(feels)
         print new_feeling
-        photos = fApi.get_photos(new_feeling)
+        # photos = fApi.get_photos(new_feeling)
+        photos = get_giphy(feels)
         pic = Picture(flickr_url=photos)
         db.session.add(pic)
     

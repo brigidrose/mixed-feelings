@@ -9,6 +9,76 @@
     margin-right: auto;
 }
 
+/*##########################HOME PAGE SECTION##################################*/
+
+
+/*###########################FEELINGS FORM PAGE#################################*/
+#feelings-form {
+  display: inline-block;
+  text-align: center;
+  width: 80%;
+}
+
+.form-group label {
+  padding-top: 5px;
+  font-size: 20px;
+  font-family: 'Futura';
+}
+
+/*########################USER PROFILE PAGE####################################*/
+.container {
+  width: 80%;
+  margin: 30px auto;
+  overflow: hidden;
+}
+
+.galleryItem{
+  color: #797478;
+  font: 10px/1.5 Verdana, Helvetica, sans-serif;
+  float: left;
+
+  width: 16%;
+  margin: 2% 2% 50px 2%;
+}
+
+.galleryItem h4 {
+  text-transform: uppercase;
+}
+
+.galleryItem img {
+  max-width: 100%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* MEDIA QUERIES*/
+@media only screen and (max-width : 940px),
+only screen and (max-device-width : 940px){
+  .galleryItem {width: 21%;}
+}
+ 
+@media only screen and (max-width : 720px),
+only screen and (max-device-width : 720px){
+  .galleryItem {width: 29.33333%;}
+}
+ 
+@media only screen and (max-width : 530px),
+only screen and (max-device-width : 530px){
+  .galleryItem {width: 46%;}
+}
+ 
+@media only screen and (max-width : 320px),
+only screen and (max-device-width : 320px){
+  .galleryItem {width: 96%;}
+  .galleryItem img {width: 96%;}
+  .galleryItem h3 {font-size: 18px;}
+  .galleryItem p, {font-size: 18px;}
+}
+
+/*#############################################################################*/
+
+
 #photo {
   width: 60%;
   border: 4px solid black;
@@ -21,6 +91,7 @@ font-family: 'Futura';
 color: #fff;
 text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
 text-align: center;
+padding-bottom: 20px;
 }
 /*#######################################################################*/
 /*div.tab {

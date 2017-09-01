@@ -1,3 +1,27 @@
+var markers = [];
+var map;
+
+function filterByKeyword(keyword){
+  if(keyword == ""){
+    markers.forEach(function(marker){
+        marker.setMap(map);
+    })}else{
+      markers.forEach(function(marker){
+      if (marker.keyword != keyword)
+        marker.setMap(null);
+      else 
+        marker.setMap(map);
+    });
+  }
+}
+
+  
+
+$("#search-keyword").on('keyup', function(){
+  var keyword = $("#search-keyword").val();
+  filterByKeyword(keyword);
+})
+
 function initMap() {
 
   // Specify where the map is centered
@@ -7,7 +31,7 @@ function initMap() {
   var myLatLng = {lat: 41.850033, lng: -87.6500523};
 
   // Create a map object and specify the DOM element for display.
-  var map = new google.maps.Map(document.getElementById('feelings-heatmap'), {
+  map = new google.maps.Map(document.getElementById('feelings-heatmap'), {
     center: myLatLng,
     zoomControlOptions: {
               position: google.maps.ControlPosition.RIGHT_CENTER
@@ -54,8 +78,9 @@ function initMap() {
               map: map,
               title: 'Feeling ' + feeling.keywords,
               icon: img,
-             
+              keyword: feeling.keywords
           });
+          markers.push(marker)
           
           // Define the content of the infoWindow
           html = (
@@ -79,15 +104,6 @@ function initMap() {
           console.log("STUFF HAPPENING HEREEEEE")
       
 
-          // marker.addListener('click', function() {
-          //   infoWindow.open(map, marker);
-          // });
-
-
-
-          // Inside the loop we call bindInfoWindow passing it the marker,
-          // map, infoWindow and contentString
-          // bindInfoWindow(marker, map, infoWindow, html);
       }
 
   });
