@@ -25,7 +25,6 @@
 
 </head>
 <body>
-<div id="content">
     <!-- Static navbar -->
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -41,6 +40,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+      </div>
   <!--       <a class="navbar-brand">MF</a> -->
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -60,15 +60,18 @@
       </div>
     </div>
   </nav>
+<div class="container-fluid" id="content">
+
 {% block content %}
 {% endblock %}
 </div> <!-- last line of body -->
 
-  <div id="footer">
+
+  <footer id="footer" class="footer navbar-fixed-bottom">
     {%block footer %}
     &copy; Just kidding this isn't copywritten.
     {% endblock %}
-  </div>
+  </footer>
 {% block page_js %}
 {% endblock %}
 </body>
