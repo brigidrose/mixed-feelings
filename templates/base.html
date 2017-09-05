@@ -43,19 +43,23 @@
       </div>
   <!--       <a class="navbar-brand">MF</a> -->
       <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
+       <div class="col-md-push-9">
+        <ul class="nav navbar-nav navbar-fixed-side" id="left-nav">
           <li><a href="/about">About</a></li>
           <li><a href="/global_feelings">Feelings Heatmap</a></li>
-          {% if "user_id" in session %}
           <li><a href="/feelings">Feelings</a></li>
+        </ul>
+      </div>
+      <div class="col-md-pull-3">
+        <ul class="nav navbar-nav navbar-right">
+          {% if "user_id" in session %}
           <li><a href="/users/{{ session['user_id'] }}">Profile</a></li>
           <li><a href="/logout">Log Out</a></li>
-        </ul>
         {% else %}
-        <ul class="nav navbar-nav navbar-right">
           <li><a href="/login">Log In</a></li>
           <li><a href="/register">Register</a></li>
         </ul>
+      </div>
         {% endif %}
       </div>
     </div>

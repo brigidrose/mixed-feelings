@@ -7,14 +7,19 @@ margin-left: 40px;
 #feelings-heatmap {
     height: 100%;
     border-radius: 20px;
+    margin-top: 0;
 }
 #map-container {
     /*position: absolute;*/
     width: 1250px;
-    height: 800px;
+    height: 600px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0;
 
+}
+#search-keyword{
+  margin-bottom: 0;
 }
 
 /*##########################HOME PAGE SECTION##################################*/
@@ -22,6 +27,7 @@ margin-left: 40px;
 #content { 
 position: fixed;
 background-color: gray;
+overflow-x: scroll;
 background-size: cover;
 background: url(/static/img/polygonbg.svg) center center;
 width: 100%;
@@ -35,27 +41,52 @@ background-color: rgba(238, 231, 231, 0.8);
 .navbar {
   margin-bottom: 0;
 }
+#left-nav {
+  margin-left: 10px;
+}
 
 
 /*###########################FEELINGS FORM PAGE#################################*/
 #feelings-form {
   display: inline-block;
   margin-left: 40px;
-  width: 80%;
-  height: 80%%;
+  width: 60%;
   background-color: rgba(238, 231, 231, 0.75);
   border-radius: 10px;
 }
 
 .form-control {
-  margin-left: 10px;
+  background-color: white;
+  border-radius: 40px;
 }
 
 .form-group label {
   padding-top: 5px;
   font-size: 20px;
   font-family: 'Futura';
-  margin-left: 10px;
+  margin-left: 30px;
+  margin-bottom: 0;
+}
+
+.btn.btn-info{
+  margin-left: 30px;
+
+}
+.thumbnail {
+  height: 400px;
+}
+
+/*.thumbholder {
+  height: 283px;
+  background-color: gray;
+}*/
+.thumb {
+    margin-bottom: 30px;
+}
+
+.img-responsive{
+  width: 100%;
+  height: 250px;
 }
 
 #footer {
