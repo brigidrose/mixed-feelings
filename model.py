@@ -37,7 +37,7 @@ class Result(db.Model):
     result_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     tweet_id = db.Column(db.Integer, db.ForeignKey('tweets.tweet_id'))
-    flickr_id = db.Column(db.Integer, db.ForeignKey('pictures.flickr_id'))
+    giphy_id = db.Column(db.Integer, db.ForeignKey('pictures.giphy_id'))
     generated_at = db.Column(db.DateTime)
     keywords = db.Column(db.String(500))
     block_text = db.Column(db.String(500))
@@ -77,17 +77,17 @@ class Tweet(db.Model):
 ##############################################################################
 
 class Picture(db.Model):
-    """Saves the info from a Flickr API call."""
+    """Saves the info from a Giphy API call."""
 
     __tablename__ = "pictures"
 
-    flickr_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    flickr_url = db.Column(db.String(400))
+    giphy_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    giphy_url = db.Column(db.String(400))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Picture flickr_id=%s>" % (self.flickr_id)
+        return "<Picture giphy_id=%s>" % (self.giphy_id)
 
 
 ##############################################################################

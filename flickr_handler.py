@@ -12,13 +12,11 @@ class flickrClient(object):
         #keys and tokens from the Flickr Dev Console
         api_key = os.environ['FLICKR_API_KEY']
         api_secret = os.environ['FLICKR_API_SECRET']
-        
-
-            #PROBABLY NEED TO PUT AUTHENTICATION STUFF HERE. NOT SURE HOW.
 
         """Now for all of the talking to Flickr code..."""
         self.api = flickrapi.FlickrAPI(api_key, api_secret, format='parsed-json')
         self.extras = 'url_l'
+        # Below is the first attempt to clean up API call in terms of photo size.
         #'url_sq,url_t,url_s,url_q,url_m,url_n,url_z,url_c,url_l,url_o'
 
     def get_photos(self, text):

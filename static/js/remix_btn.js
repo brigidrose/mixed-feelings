@@ -1,7 +1,7 @@
 function showReloadResults(results) {
     console.log(results);
     $("#photo").attr("src", results["photo"]);
-    $("#flickr-url").val(results["photo"]);
+    $("#giphy-url").val(results["photo"]);
     $("#text").html(results["tweets"]);
     $("#twitter-text").val(results["tweets"]);
 }

@@ -7,12 +7,12 @@ from model import User, Result, Tweet, Picture, connect_to_db, db
 from server import app
 
 from faker import Faker
-from flickr_handler import flickrClient
+#from flickr_handler import flickrClient
 from twitter_handler import TwitterClient
 from giphy_handler import get_giphy
 
 fake = Faker()
-fApi = flickrClient()
+#fApi = flickrClient()
 tApi = TwitterClient()
 
 feels = ['happy', 'sad', 'angry', 'sleepy', 'upset', 'excited', 'scared', 'anxious',
@@ -53,7 +53,7 @@ def load_pictures():
         print new_feeling
         # photos = fApi.get_photos(new_feeling)
         photos = get_giphy(feels)
-        pic = Picture(flickr_url=photos)
+        pic = Picture(giphy_url=photos)
         db.session.add(pic)
     
     db.session.commit()
@@ -89,7 +89,7 @@ def load_results():
 
         user_id = (random.choice(User.query.all())).user_id
         tweet_id = (random.choice(Tweet.query.all())).tweet_id
-        pic_id = (random.choice(Picture.query.all())).flickr_id
+        pic_id = (random.choice(Picture.query.all())).giphy_id
         date = fake.date()
         keyword = random.choice(feels)
         block = str(fake.text())
@@ -99,7 +99,7 @@ def load_results():
  
         result = Result(user_id=user_id,
                         tweet_id=tweet_id,
-                        flickr_id=pic_id,
+                        giphy_id=pic_id,
                         generated_at=date,
                         keywords=keyword,
                         block_text=block,

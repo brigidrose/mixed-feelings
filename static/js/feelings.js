@@ -49,6 +49,7 @@ function initMap() {
             width: 150
 
   });
+  console.log("initMap is done");
 
   
 //   // Retrieving the information with AJAX
@@ -87,7 +88,7 @@ function initMap() {
               '<div class="window-content">' +
                   '<p><b>Real Person with Real Feelings: </b> <a href="/users/' + feeling.user_id + '">USER</a></p>' +
                 '<div class="col-md-5">' +
-                  '<img width="254" height="355" src=' + feeling.flickr_id + '>' +
+                  '<img width="254" height="355" src=' + feeling.giphy_id + '>' +
                 '</div>' + 
                 '<div class="col-md-5">' +
                   '<p><b>Word(s) Searched: </b>' + feeling.keywords + '</p>' +
@@ -101,10 +102,10 @@ function initMap() {
 
           
           bindInfoWindow(marker, map, infoWindow, html);
-          console.log("STUFF HAPPENING HEREEEEE")
       
 
       }
+          console.log("STUFF HAPPENING HEREEEEE");
 
   });
 

@@ -8,7 +8,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Result, Tweet, Picture
 
 from twitter_handler import TwitterClient
-from flickr_handler import flickrClient
+#No longer in use
+#from flickr_handler import flickrClient
 from text_sentiment import sentiment
 import datetime
 from flask_sqlalchemy import SQLAlchemy
@@ -22,7 +23,8 @@ from giphy_handler import get_giphy
 import giphypop
 
 app = Flask(__name__)
-fApi = flickrClient()
+#no longer in use
+#fApi = flickrClient()
 tApi = TwitterClient()
 
 
@@ -55,16 +57,20 @@ def login_process():
     email = request.form["email"]
     password = request.form["password"]
 
+    #Query db to see if user exists. 
     user = User.query.filter_by(email=email).first()
 
+    #if the user doesn't exist, redirect to login again.
     if not user:
         flash("No such user")
         return redirect("/login")
 
+    #if password is wrong, indicate wrong password and redirect to login   
     if user.password != password:
         flash("Incorrect password")
         return redirect("/login")
 
+    #if credentials are good, save user id from db in the current session
     session["user_id"] = user.user_id
 
     flash("Logged in")
@@ -84,13 +90,9 @@ def register_process():
     # Get form variables
     email = request.form["email"]
     password = request.form["password"]
-    # age = int(request.form["age"])
-    # zipcode = request.form["zipcode"]
-
     new_user = User(email=email, password=password)
 
-    # age=age, zipcode=zipcode)
-
+    # Add new user to the database, commit that add.
     db.session.add(new_user)
     db.session.commit()
 
@@ -111,6 +113,7 @@ def about():
 def profile(user_id):
     """Allows user to go to their personal profile page."""
 
+    #show all past saves from that current user.
     past_saves = Result.query.filter_by(user_id=user_id).all()
 
     return render_template("user.html", saved_mixes=past_saves)
@@ -157,18 +160,15 @@ def process_feelings():
     
     #block text analysis
     analyzed_text = sentiment(block) + sentiment(feels)
-    print "LOOOOOKKKKKK RIGHT HERE!!!!!!!!!!!!!!!!!!!!!!"
     print analyzed_text
-
-
 
     #twitter text analysis based on users choice
     if toggle == "full":
         feeling ='positive'
-        print "POSIIIIII"
+        print "POSI"
     else:
         feeling = 'negative'
-        print "NEGIIIIII"
+        print "NEGI"
         # picking positive tweets from tweets
     get_tweets = [tweet for tweet in get_tweets if tweet['sentiment'] == feeling]
     print get_tweets
@@ -191,7 +191,6 @@ def refresh_results():
 
     feelings = request.form["keyword"]
     toggle = request.form["toggle"]
-
 
     # photos = fApi.get_photos(feelings)
     photos = get_giphy(feelings)
@@ -219,16 +218,14 @@ def refresh_results():
 def save_results():
     """Saving the img and the text from results"""
 
-
     # Get form variables
     keyword = request.form["keywords"]
     text_results = request.form["twitter"]
-    flick_url = request.form["flickr"]
+    giphy_url = request.form["giphy"]
     block = request.form["b_text"]
     sentiment = request.form["sentiment"]
     lat = request.form["lat"]
     lng = request.form["long"]
-
 
     #Saving current user info into the db
     user_id = session.get("user_id")
@@ -236,19 +233,15 @@ def save_results():
     save_twit = Tweet(tweet_text=text_results)
     db.session.add(save_twit)
     db.session.commit()
-    #Saving flickr data to db
-    save_flick = Picture(flickr_url=flick_url)
-    db.session.add(save_flick)
+    #Saving giphy data to db
+    save_gif = Picture(giphy_url=flick_url)
+    db.session.add(save_gif)
     db.session.commit()
-    #Saving block text input
-  
-    #Get geolocation information once user saves results.
-
 
 
     new_keyword = Result(keywords=keyword, 
                          tweet_id=save_twit.tweet_id, 
-                         flickr_id=save_flick.flickr_id,
+                         giphy_id=save_flick.giphy_id,
                          block_text=block,
                          sentiment=sentiment,
                          generated_at=datetime.datetime.now(),
@@ -257,10 +250,8 @@ def save_results():
                          lng=lng)
 
     
-
     db.session.add(new_keyword)
     db.session.commit()
-
 
 
     return redirect("/users/%s" % user_id)
@@ -277,7 +268,7 @@ def users_feelings():
         result.result_id: {
             "user_id": result.user_id,
             "tweet_id": result.tweet.tweet_text,
-            "flickr_id": result.picture.flickr_url,
+            "giphy_id": result.picture.giphy_url,
             "generated_at": result.generated_at,
             "keywords": result.keywords,
             "block_text": result.block_text,
@@ -285,48 +276,40 @@ def users_feelings():
             "lat": result.lat,
             "lng": result.lng
         }
-        for result in Result.query.limit(500)}
+        for result in Result.query.order_by(Result.generated_at).limit(500)}
 
     return jsonify(feelings)
 
 
 @app.route('/word_cloud', methods=['GET'])
 def create_word_cloud():
+    """This section not yet implimented on the site."""
 
-    user_results = db.session.query(Result.keywords,          #what would I put for current user id?
+    user_results = db.session.query(Result.keywords,          
                                     Result.block_text).filter(Result.user_id == session['user_id']).all()
 
     corpus = " ".join([keywords + " " + block_text for keywords, block_text in user_results])
 
     print type(corpus)
 
-    
-
     wordcloud = WordCloud().generate(corpus)
 
-    # # # Display the generated image:
-    # # # the matplotlib way:
+    #Display image using matplot
     import matplotlib.pyplot as plt
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis("off")
 
-  
     plt.show()
 
     return render_template("word_cloud.html")
 
 
-
-
 @app.route('/logout')
 def logout():
-
+    #if user logs out, delete session.
     del session["user_id"]
     flash("Logged Out.")
     return redirect("/")
-
-
-    
 
 
 if __name__ == "__main__":

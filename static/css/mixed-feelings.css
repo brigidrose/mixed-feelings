@@ -16,10 +16,23 @@ margin-left: 40px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
+    margin-bottom: 10px;
+    border-radius: 20px;
 
 }
 #search-keyword{
   margin-bottom: 0;
+  width: 600px;
+}
+
+.search{
+  color: white;
+  align-self: center;
+}
+.form-group.map{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
 }
 
 /*##########################HOME PAGE SECTION##################################*/
@@ -58,7 +71,16 @@ background-color: rgba(238, 231, 231, 0.8);
 .form-control {
   background-color: white;
   border-radius: 40px;
+  width: 430px;
 }
+/*.form-group-long{
+  padding-top: 5px;
+  font-size: 20px;
+  font-family: 'Futura';
+  margin-left: 30px;
+  margin-bottom: 0;
+  width: 200px;
+}*/
 
 .form-group label {
   padding-top: 5px;
@@ -68,17 +90,52 @@ background-color: rgba(238, 231, 231, 0.8);
   margin-bottom: 0;
 }
 
-.btn.btn-info{
+.btn.btn-info.calc-btn{
   margin-left: 30px;
-
 }
+/*############################### RESULTS!!!!#################################*/
+
+#results-box{
+  display: inline-block;
+  margin-left: 40px;
+  width: 50%;
+  background-color: rgba(238, 231, 231, 0.75);
+  border-radius: 10px;
+}
+
+#photo{
+  margin-top: 20px;
+}
+
+#text{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-family: 'Futura';
+}
+
+.results-form{
+  display: inline-block;
+  padding-bottom: 30px;
+  margin-top: 0;
+}
+
+.save-btn{
+  padding-right: 50px;
+  margin-left: 0;
+}
+
+/*############################### USER PAGE!! ###################################*/
+
 .thumbnail {
   height: 400px;
+  color: black;
 }
 
 /*.thumbholder {
   height: 283px;
   background-color: gray;
+
 }*/
 .thumb {
     margin-bottom: 30px;
@@ -89,9 +146,88 @@ background-color: rgba(238, 231, 231, 0.8);
   height: 250px;
 }
 
+#saved-text{
+  font-family: 'Futura';
+  color: black;
+}
+
 #footer {
   width: 100px;
   height: 20px;
   background-color: rgba(238, 231, 231);
 }
+/*#################### EXPERIMENTAL ANIMATED STUFF SECTION #####################*/
+
+@font-face {
+  font-family: neon;
+  src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/707108/neon.ttf);
+}
+
+.container-home{
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+ /* background-color: #D3D3D3;
+  width: 80%;*/
+}
+
+.neon {
+  font-family: neon;
+  color: #FB4264;
+  font-size: 16vw;
+  line-height: 16vw;
+  text-shadow: 0 0 3vw #F40A35;
+  margin-top: 100px;
+  margin-left: 150px;
+}
+
+.flux {
+  font-family: neon;
+  color: #426DFB;
+  font-size: 16vw;
+  line-height: 16vw;
+  text-shadow: 0 0 3vw #2356FF;
+  margin-top: 100px;
+  margin-left: 150px;
+
+
+}
+
+.neon {
+  animation: neon 1s ease infinite;
+  -moz-animation: neon 1s ease infinite;
+  -webkit-animation: neon 1s ease infinite;
+}
+
+@keyframes neon {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #FED128, .5vw .5vw .1vw #806914;
+    color: #FED128;
+  }
+  50% {
+    text-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #800E0B, .5vw .5vw .1vw #40340A;
+    color: #806914;
+  }
+}
+
+.flux {
+  animation: flux 2s linear infinite;
+  -moz-animation: flux 2s linear infinite;
+  -webkit-animation: flux 2s linear infinite;
+  -o-animation: flux 2s linear infinite;
+}
+
+@keyframes flux {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
+    color: #28D7FE;
+  }
+  50% {
+    text-shadow: 0 0 .5vw #082180, 0 0 1.5vw #082180, 0 0 5vw #082180, 0 0 5vw #082180, 0 0 .2vw #082180, .5vw .5vw .1vw #0A3940;
+    color: #146C80;
+  }
+}
+
 

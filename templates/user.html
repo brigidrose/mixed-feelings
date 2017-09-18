@@ -17,11 +17,12 @@
               <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                   <a class="thumbnail" href="#">
                <div class="thumbholder">   
-                      <img class="img-responsive" src="{{ result.picture.flickr_url }}" alt="">
+                      <img class="img-responsive" src="{{ result.picture.giphy_url }}" alt="">
               </div>
 
                       <h4>{{result.keywords}}</h4>
-                      <p>{{ result.tweet.tweet_text }}</p>                      
+                      <p class="saved-text">{{ result.tweet.tweet_text }}</p>
+                      <!-- <p>Saved at:{{result.generated_at}}</p>                       -->
                   </a>
             </div>
     {% endfor %}
