@@ -1,45 +1,26 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %} <!-- <a href="/word_cloud">Word Cloud</a> -->
+ {% if saved_mixes %}
 
-<!-- <a href="/word_cloud">Word Cloud</a> -->
-
-{% if saved_mixes %}
-    
-     <div class="container">
-
-        <div class="row">
-
-            <div class="col-lg-12">
-                <h1 class="page-header">Saved Feels</h1>
-            </div>
-    {% for result in saved_mixes %} 
-                 
-              <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                  <a class="thumbnail" href="#">
-               <div class="thumbholder">   
-                      <img class="img-responsive" src="{{ result.picture.giphy_url }}" alt="">
-              </div>
-
-                      <h4>{{result.keywords}}</h4>
-                      <p class="saved-text">{{ result.tweet.tweet_text }}</p>
-                      <!-- <p>Saved at:{{result.generated_at}}</p>                       -->
-                  </a>
-            </div>
-    {% endfor %}
-        </div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Saved Feels</h1>
     </div>
+    {% for result in saved_mixes %}
+
+    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+      <a class="thumbnail" href="#">
+      <div class="thumbholder"><img alt="" class="img-responsive" src="{{%20result.picture.giphy_url%20}}">
+      </div>
 
 
-{% endif %}
+      <h4>{{result.keywords}}</h4>
 
 
-
-
-{% endblock %}
-
-{% block page_js %}
-{% endblock %}
-
-  <!--   <h3>{{result.keywords}}</h3>
-    <img src="{{ result.picture.flickr_url}}">
-    <p>{{ result.tweet.tweet_text}}</p> -->
+      <p class="saved-text">{{ result.tweet.tweet_text }}</p>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %} {% endblock %} {% block page_js %} {% endblock %}

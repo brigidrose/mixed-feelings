@@ -4,79 +4,65 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" integrity="sha384-awusxf8AUojygHf2+joICySzB780jVvQaVCAt1clU3QsyAitLGul28Qxb2r1e5g+" crossorigin="anonymous">
+  <!-- Bootstrap -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" integrity="sha384-awusxf8AUojygHf2+joICySzB780jVvQaVCAt1clU3QsyAitLGul28Qxb2r1e5g+" crossorigin="anonymous">
   <!-- Google Fonts Link -->
   <link href='http://fonts.googleapis.com/css?family=Frijole' rel='stylesheet' type='text/css'>
- <!--  Javascript -->
-  
+  <!--  Javascript -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js">
   </script>
-
-  <!-- STUFF NEEDED FOR GOOGLE MAPS API -->
-
-
-
-  
+  <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="/static/css/mixed-feelings.css">
-
+  <!-- Title -->
   <title>{%block title %} Mixed Feelings {% endblock %} </title>
-
-
 </head>
 <body>
-    <!-- Static navbar -->
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button"
-                class="navbar-toggle collapsed"
-                data-toggle="collapse"
-                data-target="#navbar"
-                aria-expanded="false"
-                aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-  <!--       <a class="navbar-brand">MF</a> -->
-      <div id="navbar" class="navbar-collapse collapse">
-       <div class="col-md-push-9">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+    </div><!--       <a class="navbar-brand">MF</a> -->
+    <div class="navbar-collapse collapse" id="navbar">
+      <div class="col-md-push-9">
         <ul class="nav navbar-nav navbar-fixed-side" id="left-nav">
-          <li><a href="/about">About Feels</a></li>
-          <li><a href="/global_feelings">Feels Map</a></li>
-          <li><a href="/feelings">Feels Calculator</a></li>
+          <li>
+            <a href="/about">About Feels</a>
+          </li>
+          <li>
+            <a href="/global_feelings">Feels Map</a>
+          </li>
+          <li>
+            <a href="/feelings">Feels Calculator</a>
+          </li>
         </ul>
       </div>
       <div class="col-md-pull-3">
         <ul class="nav navbar-nav navbar-right">
-          {% if "user_id" in session %}
-          <li><a href="/users/{{ session['user_id'] }}">Profile</a></li>
-          <li><a href="/logout">Log Out</a></li>
-        {% else %}
-          <li><a href="/login">Log In</a></li>
-          <li><a href="/register">Register</a></li>
+          <li style="list-style: none">{% if "user_id" in session %}</li>
+          <li>
+            <a href="/users/{{%20session['user_id']%20}}">Profile</a>
+          </li>
+          <li>
+            <a href="/logout">Log Out</a>
+          </li>
+          <li style="list-style: none">{% else %}</li>
+          <li>
+            <a href="/login">Log In</a>
+          </li>
+          <li>
+            <a href="/register">Register</a>
+          </li>
         </ul>
-      </div>
-        {% endif %}
-      </div>
+      </div>{% endif %}
     </div>
-  </nav>
+  </div>
+</nav>
 <div class="container-fluid" id="content">
-
-{% block content %}
-{% endblock %}
-</div> <!-- last line of body -->
-
-
-  <footer id="footer" class="footer navbar-fixed-bottom">
-    {%block footer %}
-    <!-- &copy; Just kidding this isn't copywritten. -->
-    {% endblock %}
-  </footer>
-{% block page_js %}
-{% endblock %}
+  {% block content %} {% endblock %}
+</div><!-- last line of body -->
+<footer class="footer navbar-fixed-bottom" id="footer">
+  {%block footer %} <!-- &copy; Just kidding this isn't copywritten. -->
+   {% endblock %}
+</footer>{% block page_js %} {% endblock %}
 </body>
 </html>
