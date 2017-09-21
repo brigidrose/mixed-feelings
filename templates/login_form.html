@@ -1,21 +1,29 @@
-{% extends 'base.html' %} {% block content %}
-
-<h1>Login</h1>
-
-
-<form action="/login" method="post">
-    <div class="form-group">
-        <label>Email: <input class="form-control" name="email" required="" type="email"></label>
-    </div>
+{% extends 'base.html' %}
+{% block content %}
 
 
-    <div class="form-group">
-        <label>Password: <input class="form-control" name="password" required="" type="password"></label>
-    </div>
+    <h1>Login</h1>
+    <form action="/login" method="POST">
 
+        <div class="form-group">
+            <label>Email:
+                <input type="email" name="email" required class="form-control">
+            </label>
+        </div>
 
-    <div class="form-group">
-        <input class="btn btn-info" type="submit" value="Login">
-    </div>
-</form>
-{% endblock %} {% block page_js %} {% endblock %}
+        <div class="form-group">
+            <label>Password:
+                <input type="password" name="password" required class="form-control">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Login" class="btn btn-info">
+        </div>
+
+    </form>
+
+{% endblock %}
+
+{% block page_js %}
+{% endblock %}
