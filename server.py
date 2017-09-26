@@ -234,14 +234,14 @@ def save_results():
     db.session.add(save_twit)
     db.session.commit()
     #Saving giphy data to db
-    save_gif = Picture(giphy_url=flick_url)
+    save_gif = Picture(giphy_url=giphy_url)
     db.session.add(save_gif)
     db.session.commit()
 
 
     new_keyword = Result(keywords=keyword, 
                          tweet_id=save_twit.tweet_id, 
-                         giphy_id=save_flick.giphy_id,
+                         giphy_id=save_gif.giphy_id,
                          block_text=block,
                          sentiment=sentiment,
                          generated_at=datetime.datetime.now(),
