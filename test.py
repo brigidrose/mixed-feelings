@@ -27,7 +27,7 @@ class MyAppIntegrationTestCase(unittest.TestCase):
     def test_user_page(self):
         client = server.app.test_client()
         result = client.get('/user')
-        self.assertIn('<h4>{{result.keywords}}</h4>', result.data)
+        self.assertIn('Saved Feels', result.data)
 
     def test_feelings_form(self):
         client = server.app.test_client()
@@ -38,6 +38,8 @@ class MyAppIntegrationTestCase(unittest.TestCase):
         client = server.app.test_client()
         result = client.get('/global_feelings')
         self.assertIn('<div id="feelings-heatmap"></div>', result.data)
+
+
 
 
 
