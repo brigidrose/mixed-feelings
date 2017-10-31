@@ -86,6 +86,7 @@ def register_form():
 @app.route('/register', methods=['POST'])
 def register_process():
     """Process registration."""
+    
 
     # Get form variables
     email = request.form["email"]
@@ -150,6 +151,8 @@ def process_feelings():
     print photos
 
     # calling function to get tweets
+    print "!!!!!!!!!!!!!!!!!"
+    print feels
     get_tweets = tApi.get_tweets(query=feels, count=200)
     print get_tweets
 
@@ -170,10 +173,12 @@ def process_feelings():
         feeling = 'negative'
         print "NEGI"
         # picking positive tweets from tweets
+    if get_tweets == None:
+        return render_template("broke_the_internet.html")
     get_tweets = [tweet for tweet in get_tweets if tweet['sentiment'] == feeling]
     print get_tweets
-    if len(get_tweets) == 0:
-        return render_template("broke_the_internet.html")
+    # if len(get_tweets) == 0:
+    #     return render_template("broke_the_internet.html")
 
     tweet_text = tweet['text']
 

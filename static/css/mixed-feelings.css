@@ -148,6 +148,7 @@ background-color: rgba(238, 231, 231, 0.8);
 
 #saved-text{
   font-family: 'Futura';
+  font-size: 20px;
   color: black;
 }
 
@@ -156,6 +157,25 @@ background-color: rgba(238, 231, 231, 0.8);
   height: 20px;
   background-color: rgba(238, 231, 231);
 }
+
+/*###################### ABOUT PAGE! #########################################*/
+
+#about {
+  /*display: inline-block;*/
+  margin: auto;
+  width: 75%;
+  background-color: rgba(238, 231, 231, 0.75);
+  border-radius: 10px;
+}
+
+#about-text {
+  font-family: 'Futura';
+  font-size: 20px;
+  color: rgb(102, 102, 102);
+  padding: 20px;
+
+}
+
 /*#################### EXPERIMENTAL ANIMATED STUFF SECTION #####################*/
 
 @font-face {

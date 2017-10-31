@@ -96,7 +96,7 @@ class TwitterClient(object):
             # time.sleep(30)
             # print error (if any)
             print("Error : " + str(e))
-            print "OVERLOAD!!!!!"
+            print "HAVE YOU SOURCED YOUR SECRETS YET, FOOL?!"
             
 
 
