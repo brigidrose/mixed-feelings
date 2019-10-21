@@ -16,7 +16,7 @@ itsdangerous==0.24
 Jinja2==2.7.3
 MarkupSafe==0.23
 matplotlib==2.0.2
-nltk==3.2.4
+nltk==3.4.5
 numpy==1.13.1
 oauthlib==2.0.2
 olefile==0.44
