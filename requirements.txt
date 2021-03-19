@@ -13,7 +13,7 @@ giphypop==0.3
 idna==2.5
 ipaddress==1.0.18
 itsdangerous==0.24
-Jinja2==2.7.3
+Jinja2==2.11.3
 MarkupSafe==0.23
 matplotlib==2.0.2
 nltk==3.2.4
